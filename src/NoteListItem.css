@@ -1,0 +1,35 @@
+.note-list-item {
+  background: var(--background);
+  cursor: pointer;
+  font-size: 1.4rem;
+  padding: 1em 4rem;
+}
+
+.note-list-item:hover {
+  background: var(--background-hover, #e7f8fd);
+}
+
+.note-list-item_selected {
+  --background: #01baef;
+  --background-hover: #01aada;
+  --first-line-color: #fbfbff;
+  --title-weight: 700;
+  color: #fbfbff;
+}
+
+.note-list-item__title,
+.note-list-item__first-line {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.note-list-item__title {
+  font-size: 1.2em;
+  font-weight: var(--title-weight, 400);
+}
+
+.note-list-item__first-line {
+  color: var(--first-line-color, #767c7f);
+}
