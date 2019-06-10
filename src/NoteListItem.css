@@ -17,6 +17,11 @@
   color: #fbfbff;
 }
 
+.note-list-item_empty {
+  --title-weight: 400;
+  font-style: italic;
+}
+
 .note-list-item__title,
 .note-list-item__first-line {
   margin: 0;

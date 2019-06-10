@@ -12,6 +12,9 @@ function NoteListItem(props) {
   if (props.selected) {
     className += ' note-list-item_selected';
   }
+  if (!props.note.text.trim()) {
+    className += ' note-list-item_empty';
+  }
 
   const handleClick = (e) => {
     props.dispatch({ type: 'select', selectedNoteId: props.note.id });
@@ -19,7 +22,7 @@ function NoteListItem(props) {
 
   return (
     <li className={className} onClick={handleClick}>
-      <h5 className="note-list-item__title">{noteTitle}</h5>
+      <h5 className="note-list-item__title">{noteTitle || '(empty note)'}</h5>
       {noteFirstLine && (
         <p className="note-list-item__first-line">{noteFirstLine}</p>
       )}
