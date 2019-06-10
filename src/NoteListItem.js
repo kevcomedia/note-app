@@ -6,7 +6,7 @@ function NoteListItem(props) {
   // captures to the output array.
   const noteLines = props.note.text.split(/(?:\r?\n)+/);
   const noteTitle = noteLines[0].trim();
-  const noteFirstLine = noteLines[1].trim();
+  const noteFirstLine = noteLines[1] && noteLines[1].trim();
 
   let className = 'note-list-item';
   if (props.selected) {
@@ -15,12 +15,14 @@ function NoteListItem(props) {
 
   const handleClick = (e) => {
     props.onClick(props.note.id);
-  }
+  };
 
   return (
     <li className={className} onClick={handleClick}>
       <h5 className="note-list-item__title">{noteTitle}</h5>
-      <p className="note-list-item__first-line">{noteFirstLine}</p>
+      {noteFirstLine && (
+        <p className="note-list-item__first-line">{noteFirstLine}</p>
+      )}
     </li>
   );
 }
