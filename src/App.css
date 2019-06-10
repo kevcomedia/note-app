@@ -6,9 +6,13 @@
 /* 1. I don't recall a flex item's content having a say on its final size. The
  * contents (e.g., when a note title is longer than 35rem wide) seem to push the
  * width greater than 35rem, even with flex-grow: 0.
+ * 2. Prevent the notes list component from increasing height beyond the page's
+ * height.
  */
 
 .App__side {
+  display: flex; /* 2 */
+  flex-direction: column; /* 2 */
   flex: 0 1 35rem;
   max-width: 35rem; /* 1 */
 }
