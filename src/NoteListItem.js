@@ -14,7 +14,7 @@ function NoteListItem(props) {
   }
 
   const handleClick = (e) => {
-    props.onClick(props.note.id);
+    props.dispatch({ type: 'select', selectedNoteId: props.note.id });
   };
 
   return (

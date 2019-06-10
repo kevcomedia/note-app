@@ -10,7 +10,7 @@ function NoteList(props) {
       note={note}
       key={note.id}
       selected={note.id === props.selectedNoteId}
-      onClick={props.onNoteSelect}
+      dispatch={props.dispatch}
     />
   ));
   return <ul className={className}>{noteListItems}</ul>;
