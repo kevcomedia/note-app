@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useReducer } from 'react';
+import AddNoteButton from './AddNoteButton';
 import NoteList from './NoteList';
 import Editor from './Editor';
 import './App.css';
@@ -11,8 +12,19 @@ const initialState = {
   selectedNoteId: 1,
 };
 
+function addNote(state) {
+  const nextId =
+    1 + state.notes.map((note) => note.id).reduce((a, b) => (b > a ? b : a), 0);
+  const newNotes = [...state.notes];
+  newNotes.unshift({ text: '', id: nextId });
+  return { ...state, notes: newNotes, selectedNoteId: nextId };
+}
+
 function reducer(state, action) {
   switch (action.type) {
+    case 'add':
+      return addNote(state);
+
     case 'update':
       if (state.selectedNoteId === null) {
         return state;
@@ -56,12 +68,14 @@ function App(props) {
 
   return (
     <div className="App">
-      <NoteList
-        className="App__side"
-        notes={state.notes}
-        selectedNoteId={state.selectedNoteId}
-        dispatch={dispatch}
-      />
+      <div className="App__side">
+        <AddNoteButton dispatch={dispatch} />
+        <NoteList
+          notes={state.notes}
+          selectedNoteId={state.selectedNoteId}
+          dispatch={dispatch}
+        />
+      </div>
       <Editor
         className="App__main"
         selectedNote={selectedNote}
