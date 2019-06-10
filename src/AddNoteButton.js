@@ -1,4 +1,5 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function AddNoteButton(props) {
   const handleClick = (e) => {
@@ -6,6 +7,7 @@ function AddNoteButton(props) {
   };
   return (
     <button type="button" onClick={handleClick}>
+      <FontAwesomeIcon icon="plus" fixedWidth />
       New Note
     </button>
   );
