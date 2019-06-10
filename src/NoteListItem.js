@@ -13,8 +13,12 @@ function NoteListItem(props) {
     className += ' note-list-item_selected';
   }
 
+  const handleClick = (e) => {
+    props.onClick(props.note.id);
+  }
+
   return (
-    <li className={className}>
+    <li className={className} onClick={handleClick}>
       <h5 className="note-list-item__title">{noteTitle}</h5>
       <p className="note-list-item__first-line">{noteFirstLine}</p>
     </li>

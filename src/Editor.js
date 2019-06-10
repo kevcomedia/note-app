@@ -1,9 +1,13 @@
 import React from 'react';
 import './Editor.css';
 
-function Editor(props) {
-  const className = `editor ${props.className}`;
-  return <textarea className={className} value={props.selectedNote.text} />;
+function Editor({ className, selectedNote }) {
+  return (
+    <textarea
+      className={`editor ${className}`}
+      value={selectedNote ? selectedNote.text : ''}
+    />
+  );
 }
 
 export default Editor;
