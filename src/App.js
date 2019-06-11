@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useReducer } from 'react';
-import AddNoteButton from './AddNoteButton';
-import DeleteNoteButton from './DeleteNoteButton';
+import Button from './Button';
 import NoteList from './NoteList';
 import Editor from './Editor';
 import './App.css';
@@ -88,8 +87,16 @@ function App(props) {
   return (
     <div className="App">
       <div className="App__side">
-        <AddNoteButton dispatch={dispatch} />
-        <DeleteNoteButton dispatch={dispatch} />
+        <Button
+          label="New Note"
+          icon="plus"
+          onClick={() => dispatch({ type: 'add' })}
+        />
+        <Button
+          label="Delete"
+          icon="trash-alt"
+          onClick={() => dispatch({ type: 'delete' })}
+        />
         <NoteList
           notes={state.notes}
           selectedNoteId={state.selectedNoteId}
