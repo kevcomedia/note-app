@@ -1,4 +1,5 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function DeleteNoteButton(props) {
   const handleClick = (e) => {
@@ -10,6 +11,7 @@ function DeleteNoteButton(props) {
       type="button"
       onClick={handleClick}
     >
+      <FontAwesomeIcon icon="trash-alt" fixedWidth />
       Delete
     </button>
   );
