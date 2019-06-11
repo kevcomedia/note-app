@@ -12,7 +12,12 @@ function NoteList(props) {
       dispatch={props.dispatch}
     />
   ));
-  return <ul className={className}>{noteListItems}</ul>;
+
+  if (noteListItems.length > 0) {
+    return <ul className={className}>{noteListItems}</ul>;
+  } else {
+    return <p className="no-notes">You have no notes.</p>;
+  }
 }
 
 export default NoteList;

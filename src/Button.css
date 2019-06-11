@@ -1,4 +1,4 @@
-.add-note-button {
+.btn {
   background: transparent;
   border: 0;
   color: #01baef;
@@ -10,7 +10,7 @@
   padding: 0.5em;
 }
 
-.add-note-button:focus,
-.add-note-button:hover {
+.btn:focus,
+.btn:hover {
   background: #e7f8fd;
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useReducer } from 'react';
-import AddNoteButton from './AddNoteButton';
+import Toolbar from './Toolbar';
+import Button from './Button';
 import NoteList from './NoteList';
 import Editor from './Editor';
 import './App.css';
@@ -20,10 +21,30 @@ function addNote(state) {
   return { ...state, notes: newNotes, selectedNoteId: nextId };
 }
 
+function deleteNote(state) {
+  if (state.selectedNoteId === null || state.notes.length === 0) {
+    return state;
+  }
+
+  const selectedNoteIndex = state.notes.findIndex(
+    ({ id }) => id === state.selectedNoteId,
+  );
+
+  const newNotes = [...state.notes];
+  newNotes.splice(selectedNoteIndex, 1);
+
+  const newSelectedNoteId =
+    newNotes.length > 0 ? newNotes[newNotes.length - 1].id : null;
+  return { notes: newNotes, selectedNoteId: newSelectedNoteId };
+}
+
 function reducer(state, action) {
   switch (action.type) {
     case 'add':
       return addNote(state);
+
+    case 'delete':
+      return deleteNote(state);
 
     case 'update':
       if (state.selectedNoteId === null) {
@@ -69,7 +90,18 @@ function App(props) {
   return (
     <div className="App">
       <div className="App__side">
-        <AddNoteButton dispatch={dispatch} />
+        <Toolbar>
+          <Button
+            label="New Note"
+            icon="plus"
+            onClick={() => dispatch({ type: 'add' })}
+          />
+          <Button
+            label="Delete"
+            icon="trash-alt"
+            onClick={() => dispatch({ type: 'delete' })}
+          />
+        </Toolbar>
         <NoteList
           notes={state.notes}
           selectedNoteId={state.selectedNoteId}
