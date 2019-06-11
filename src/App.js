@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useReducer } from 'react';
 import AddNoteButton from './AddNoteButton';
+import DeleteNoteButton from './DeleteNoteButton';
 import NoteList from './NoteList';
 import Editor from './Editor';
 import './App.css';
@@ -20,10 +21,28 @@ function addNote(state) {
   return { ...state, notes: newNotes, selectedNoteId: nextId };
 }
 
+function deleteNote(state) {
+  if (state.selectedNoteId === null || state.notes.length === 0) {
+    return state;
+  }
+
+  const selectedNoteIndex = state.notes.findIndex(
+    ({ id }) => id === state.selectedNoteId,
+  );
+
+  const newNotes = [...state.notes];
+  newNotes.splice(selectedNoteIndex, 1);
+
+  return { notes: newNotes, selectedNoteId: null };
+}
+
 function reducer(state, action) {
   switch (action.type) {
     case 'add':
       return addNote(state);
+
+    case 'delete':
+      return deleteNote(state);
 
     case 'update':
       if (state.selectedNoteId === null) {
@@ -70,6 +89,7 @@ function App(props) {
     <div className="App">
       <div className="App__side">
         <AddNoteButton dispatch={dispatch} />
+        <DeleteNoteButton dispatch={dispatch} />
         <NoteList
           notes={state.notes}
           selectedNoteId={state.selectedNoteId}
