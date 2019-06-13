@@ -25,39 +25,39 @@ function deleteNote(state) {
   return { notes: newNotes, selectedNoteId: newSelectedNoteId };
 }
 
+function updateNote(state, text) {
+  if (state.selectedNoteId === null) {
+    return state;
+  }
+
+  const selectedNoteIndex = state.notes.findIndex(
+    ({ id }) => id === state.selectedNoteId,
+  );
+
+  const newNotes = [...state.notes];
+  newNotes.splice(selectedNoteIndex, 1);
+
+  const selectedNote = state.notes[selectedNoteIndex];
+  newNotes.unshift({ ...selectedNote, text });
+  return { notes: newNotes, selectedNoteId: state.selectedNoteId };
+}
+
+function loadState(savedState) {
+  return savedState ? savedState : { notes: [], selectedNoteId: null };
+}
+
 function reducer(state, action) {
   switch (action.type) {
     case 'add':
       return addNote(state);
-
     case 'delete':
       return deleteNote(state);
-
     case 'update':
-      if (state.selectedNoteId === null) {
-        return state;
-      }
-      const selectedNoteIndex = state.notes.findIndex(
-        ({ id }) => id === state.selectedNoteId,
-      );
-
-      const newNotes = [...state.notes];
-      newNotes.splice(selectedNoteIndex, 1);
-
-      const selectedNote = state.notes[selectedNoteIndex];
-      newNotes.unshift({ ...selectedNote, text: action.text });
-      return { notes: newNotes, selectedNoteId: state.selectedNoteId };
-
+      return updateNote(state, action.text);
     case 'select':
       return { notes: state.notes, selectedNoteId: action.selectedNoteId };
-
     case 'load':
-      if (action.savedState) {
-        return action.savedState;
-      } else {
-        return { notes: [], selectedNoteId: null };
-      }
-
+      return loadState(action.savedState);
     default:
       throw new Error();
   }
