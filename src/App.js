@@ -46,7 +46,9 @@ function App(props) {
         <NoteList
           notes={state.notes}
           selectedNoteId={state.selectedNoteId}
-          dispatch={dispatch}
+          onNoteSelect={(selectedNoteId) =>
+            dispatch({ type: 'select', selectedNoteId })
+          }
         />
       </div>
       <Editor
