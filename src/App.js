@@ -52,7 +52,7 @@ function App(props) {
       <Editor
         className="App__main"
         selectedNote={selectedNote}
-        dispatch={dispatch}
+        onChange={(text) => dispatch({ type: 'update', text })}
         ref={editorRef}
       />
     </div>
