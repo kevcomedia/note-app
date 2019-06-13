@@ -5,11 +5,8 @@ import Button from './Button';
 import NoteList from './NoteList';
 import Editor from './Editor';
 import useNotes from './effects/useNotes';
+import useStorage from './effects/useStorage';
 import './App.css';
-
-const debouncedSaveToLocalStorage = debounce((state) => {
-  localStorage.setItem('notes', JSON.stringify(state));
-}, 1000);
 
 function App(props) {
   const editorRef = useRef();
@@ -29,14 +26,7 @@ function App(props) {
     [state.selectedNoteId],
   );
 
-  useEffect(function loadFromStorage() {
-    const savedState = JSON.parse(localStorage.getItem('notes'));
-    dispatch({ type: 'load', savedState });
-  }, [dispatch]);
-
-  useEffect(function saveToStorage() {
-    debouncedSaveToLocalStorage(state);
-  });
+  useStorage(state, dispatch);
 
   return (
     <div className="App">
