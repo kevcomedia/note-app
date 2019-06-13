@@ -4,8 +4,8 @@ import Toolbar from './Toolbar';
 import Button from './Button';
 import NoteList from './NoteList';
 import Editor from './Editor';
-import useNotes from './effects/useNotes';
-import useStorage from './effects/useStorage';
+import useNotes from './hooks/useNotes';
+import useStorage from './hooks/useStorage';
 import './App.css';
 
 function App(props) {
