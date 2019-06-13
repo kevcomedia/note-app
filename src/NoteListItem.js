@@ -16,8 +16,8 @@ function NoteListItem(props) {
     className += ' note-list-item_empty';
   }
 
-  const handleClick = (e) => {
-    props.dispatch({ type: 'select', selectedNoteId: props.note.id });
+  const handleClick = () => {
+    props.onClick(props.note.id);
   };
 
   return (

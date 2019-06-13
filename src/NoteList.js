@@ -9,7 +9,7 @@ function NoteList(props) {
       note={note}
       key={note.id}
       selected={note.id === props.selectedNoteId}
-      dispatch={props.dispatch}
+      onClick={(id) => props.onNoteSelect(id)}
     />
   ));
 
