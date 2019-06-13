@@ -1,60 +1,40 @@
-import React, { useEffect, useRef } from 'react';
-import { debounce } from 'lodash';
+import React, { useRef } from 'react';
 import Toolbar from './Toolbar';
 import Button from './Button';
 import NoteList from './NoteList';
 import Editor from './Editor';
 import useNotes from './hooks/useNotes';
-import useStorage from './hooks/useStorage';
 import './App.css';
 
 function App(props) {
   const editorRef = useRef();
 
-  const [state, dispatch] = useNotes();
-  const selectedNote = state.notes.find(
-    (note) => note.id === state.selectedNoteId,
-  );
-
-  useEffect(
-    function focusEditor() {
-      if (editorRef.current) {
-        editorRef.current.focus();
-        editorRef.current.selectionEnd = 0;
-      }
-    },
-    [state.selectedNoteId],
-  );
-
-  useStorage(state, dispatch);
+  const [
+    notes,
+    selected,
+    add,
+    remove, // delete is a keyword, which sucks. Used remove instead.
+    update,
+    select,
+  ] = useNotes(editorRef);
 
   return (
     <div className="App">
       <div className="App__side">
         <Toolbar>
-          <Button
-            label="New Note"
-            icon="plus"
-            onClick={() => dispatch({ type: 'add' })}
-          />
-          <Button
-            label="Delete"
-            icon="trash-alt"
-            onClick={() => dispatch({ type: 'delete' })}
-          />
+          <Button label="New Note" icon="plus" onClick={add} />
+          <Button label="Delete" icon="trash-alt" onClick={remove} />
         </Toolbar>
         <NoteList
-          notes={state.notes}
-          selectedNoteId={state.selectedNoteId}
-          onNoteSelect={(selectedNoteId) =>
-            dispatch({ type: 'select', selectedNoteId })
-          }
+          notes={notes}
+          selectedNoteId={selected ? selected.id : null}
+          onNoteSelect={select}
         />
       </div>
       <Editor
         className="App__main"
-        selectedNote={selectedNote}
-        onChange={(text) => dispatch({ type: 'update', text })}
+        selectedNote={selected}
+        onChange={update}
         ref={editorRef}
       />
     </div>

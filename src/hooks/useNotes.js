@@ -1,4 +1,5 @@
-import { useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
+import useStorage from './useStorage';
 
 function addNote(state) {
   const nextId =
@@ -63,9 +64,56 @@ function reducer(state, action) {
   }
 }
 
-function useNotes() {
+// I don't know if a parameter for a ref to some textarea is the way to go.
+// This is where TypeScript shines. Instead of passing a ref, we could pass the
+// current node/component instead, then use an interface so it expects a focus()
+// method.
+function useNotes(editorRef) {
   const initialState = { notes: [], selectedNoteId: null };
-  return useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const selectedNote = state.notes.find(
+    (note) => note.id === state.selectedNoteId,
+  );
+
+  useEffect(
+    function focusEditor() {
+      // There seems to be a lot of low-level detail here. We could abstract
+      // these out.
+      if (editorRef.current) {
+        editorRef.current.focus();
+        editorRef.current.selectionEnd = 0;
+      }
+    },
+    // Only focus when a new note is selected.
+    [editorRef, state.selectedNoteId],
+  );
+
+  // useStorage requires the raw state itself. Calling it here instead of the
+  // App component removes the need to put the state in the returned array.
+  // Also, instead of passing the dispatch function, I want to return a function
+  // that calls the "load" dispatch type. But the app breaks when I do that.
+  useStorage(state, dispatch);
+
+  // With these many elements, I think it's better to return an object. But it
+  // seems the convention for custom hooks (if ever there is one) is to return
+  // an array.
+  return [
+    state.notes,
+    selectedNote,
+    function add() {
+      dispatch({ type: 'add' });
+    },
+    // delete is a keyword; used remove instead.
+    function remove() {
+      dispatch({ type: 'delete' });
+    },
+    function update(text) {
+      dispatch({ type: 'update', text });
+    },
+    function select(id) {
+      dispatch({ type: 'select', selectedNoteId: id });
+    },
+  ];
 }
 
 export default useNotes;
