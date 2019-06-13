@@ -1,0 +1,8 @@
+.editor {
+  background: #fff;
+  border: 0.1rem solid #e5e5e8;
+  font-size: 1.8rem;
+  font: inherit;
+  padding: 1em 5rem; /* Vertical padding intentionally same as font-size */
+  resize: none;
+}

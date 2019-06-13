@@ -1,0 +1,16 @@
+.btn {
+  background: transparent;
+  border: 0;
+  color: #01baef;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 400;
+  font: inherit;
+  line-height: 1;
+  padding: 0.5em;
+}
+
+.btn:focus,
+.btn:hover {
+  background: #e7f8fd;
+}

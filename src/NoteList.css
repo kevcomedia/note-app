@@ -1,0 +1,18 @@
+.note-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+/**
+ * 1. I feel dirty placing flex-grow here, because that implies that this
+ * element should be inside a flex container. I might refactor later.
+ */
+
+.no-notes {
+  color: #727272;
+  flex-grow: 1; /* 1 */
+  font-weight: 700;
+  text-align: center;
+}
