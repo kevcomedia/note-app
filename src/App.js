@@ -1,17 +1,16 @@
 import React, { useEffect, useRef, useReducer } from 'react';
+import { debounce } from 'lodash';
 import Toolbar from './Toolbar';
 import Button from './Button';
 import NoteList from './NoteList';
 import Editor from './Editor';
 import './App.css';
 
-const initialState = {
-  notes: [
-    { id: 1, text: 'Hello world!\n\nThis is some text\n\nHi there.' },
-    { id: 2, text: 'The quick brown fox\n\njumps over\n\nthe lazy dog.' },
-  ],
-  selectedNoteId: 1,
-};
+const initialState = { notes: [], selectedNoteId: null };
+
+const debouncedSaveToLocalStorage = debounce((state) => {
+  localStorage.setItem('notes', JSON.stringify(state));
+}, 1000);
 
 function addNote(state) {
   const nextId =
@@ -64,6 +63,13 @@ function reducer(state, action) {
     case 'select':
       return { notes: state.notes, selectedNoteId: action.selectedNoteId };
 
+    case 'load':
+      if (action.savedState) {
+        return action.savedState;
+      } else {
+        return { notes: [], selectedNoteId: null };
+      }
+
     default:
       throw new Error();
   }
@@ -86,6 +92,15 @@ function App(props) {
     },
     [state.selectedNoteId],
   );
+
+  useEffect(function loadFromStorage() {
+    const savedState = JSON.parse(localStorage.getItem('notes'));
+    dispatch({ type: 'load', savedState });
+  }, []);
+
+  useEffect(function saveToStorage() {
+    debouncedSaveToLocalStorage(state);
+  });
 
   return (
     <div className="App">
