@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/note-app/static/css/main.6b79f9c6.chunk.css",
-    "main.js": "/note-app/static/js/main.bccfcae7.chunk.js",
-    "main.js.map": "/note-app/static/js/main.bccfcae7.chunk.js.map",
+    "main.js": "/note-app/static/js/main.254f0b48.chunk.js",
+    "main.js.map": "/note-app/static/js/main.254f0b48.chunk.js.map",
     "runtime~main.js": "/note-app/static/js/runtime~main.a60a26f2.js",
     "runtime~main.js.map": "/note-app/static/js/runtime~main.a60a26f2.js.map",
     "static/js/2.e91f8f5a.chunk.js": "/note-app/static/js/2.e91f8f5a.chunk.js",
     "static/js/2.e91f8f5a.chunk.js.map": "/note-app/static/js/2.e91f8f5a.chunk.js.map",
     "index.html": "/note-app/index.html",
-    "precache-manifest.46b25c5d13deaad8ded3e1b954edaf8c.js": "/note-app/precache-manifest.46b25c5d13deaad8ded3e1b954edaf8c.js",
+    "precache-manifest.61daccb1a430debcbb3bd80fd4ff23f8.js": "/note-app/precache-manifest.61daccb1a430debcbb3bd80fd4ff23f8.js",
     "service-worker.js": "/note-app/service-worker.js",
     "static/css/main.6b79f9c6.chunk.css.map": "/note-app/static/css/main.6b79f9c6.chunk.css.map"
   }
