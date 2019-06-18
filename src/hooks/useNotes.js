@@ -21,8 +21,7 @@ function deleteNote(state) {
   const newNotes = [...state.notes];
   newNotes.splice(selectedNoteIndex, 1);
 
-  const newSelectedNoteId =
-    newNotes.length > 0 ? newNotes[newNotes.length - 1].id : null;
+  const newSelectedNoteId = newNotes.length > 0 ? newNotes[0].id : null;
   return { notes: newNotes, selectedNoteId: newSelectedNoteId };
 }
 
